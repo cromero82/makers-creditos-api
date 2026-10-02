@@ -1,16 +1,10 @@
-# Compiled class file
+# Compilado
 *.class
+target/
+build/
+out/
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Empaquetados
 *.jar
 *.war
 *.nar
@@ -18,7 +12,27 @@
 *.zip
 *.tar.gz
 *.rar
+!/.mvn/wrapper/maven-wrapper.jar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Logs
+*.log
 hs_err_pid*
 replay_pid*
+
+# BlueJ y J2ME
+*.ctxt
+.mtj.tmp/
+
+# Gradle
+.gradle/
+
+# IntelliJ. El proyecto se vuelve a abrir como Maven o Gradle.
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Entorno local
+.env
+.env.*
+!.env.example
