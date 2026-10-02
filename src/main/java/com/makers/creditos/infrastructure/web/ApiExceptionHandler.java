@@ -1,8 +1,6 @@
 package com.makers.creditos.infrastructure.web;
 
-import com.makers.creditos.domain.excepcion.CredencialesInvalidasException;
-import com.makers.creditos.domain.excepcion.EstadoNoPermiteResolucionException;
-import com.makers.creditos.domain.excepcion.PrestamoNoEncontradoException;
+import com.makers.creditos.domain.excepcion.NegocioException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,19 +19,18 @@ public class ApiExceptionHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
-	@ExceptionHandler(CredencialesInvalidasException.class)
-	ProblemDetail credenciales(CredencialesInvalidasException ex) {
-		return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+	@ExceptionHandler(NegocioException.class)
+	ProblemDetail negocio(NegocioException ex) {
+		log.warn("respuesta de negocio codigo={}", ex.getCodigo());
+		return ProblemDetail.forStatusAndDetail(estado(ex.getCodigo()), ex.getMessage());
 	}
 
-	@ExceptionHandler(PrestamoNoEncontradoException.class)
-	ProblemDetail noEncontrado(PrestamoNoEncontradoException ex) {
-		return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-	}
-
-	@ExceptionHandler(EstadoNoPermiteResolucionException.class)
-	ProblemDetail estado(EstadoNoPermiteResolucionException ex) {
-		return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+	private static HttpStatus estado(NegocioException.Codigo codigo) {
+		return switch (codigo) {
+			case CREDENCIALES_INVALIDAS -> HttpStatus.UNAUTHORIZED;
+			case PRESTAMO_NO_ENCONTRADO -> HttpStatus.NOT_FOUND;
+			case APROBACION_NO_PERMITIDA -> HttpStatus.CONFLICT;
+		};
 	}
 
 	@ExceptionHandler(ObjectOptimisticLockingFailureException.class)
@@ -45,6 +42,7 @@ public class ApiExceptionHandler {
 
 	@ExceptionHandler(AuthorizationDeniedException.class)
 	ProblemDetail denegado(AuthorizationDeniedException ex) {
+		log.warn("acceso denegado");
 		return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, "No autorizado");
 	}
 

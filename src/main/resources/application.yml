@@ -1,3 +1,7 @@
+logging:
+  pattern:
+    level: "%5p actor=%X{actor:-anonimo}"
+
 server:
   port: 8090
   error:

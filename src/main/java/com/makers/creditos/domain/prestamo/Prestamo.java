@@ -1,6 +1,6 @@
 package com.makers.creditos.domain.prestamo;
 
-import com.makers.creditos.domain.excepcion.EstadoNoPermiteResolucionException;
+import com.makers.creditos.domain.excepcion.NegocioException;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -33,7 +33,7 @@ public final class Prestamo {
 
 	public Prestamo resolver(EstadoPrestamo destino) {
 		if (estado != EstadoPrestamo.PENDIENTE || destino == EstadoPrestamo.PENDIENTE) {
-			throw new EstadoNoPermiteResolucionException();
+			throw new NegocioException(NegocioException.Codigo.APROBACION_NO_PERMITIDA);
 		}
 		return builder()
 				.id(id)

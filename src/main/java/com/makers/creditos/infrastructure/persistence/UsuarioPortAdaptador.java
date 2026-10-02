@@ -1,6 +1,6 @@
 package com.makers.creditos.infrastructure.persistence;
 
-import com.makers.creditos.application.port.UsuarioRepositorio;
+import com.makers.creditos.application.port.UsuarioPort;
 import com.makers.creditos.domain.usuario.Usuario;
 import org.springframework.stereotype.Repository;
 
@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class UsuarioRepositorioAdaptador implements UsuarioRepositorio {
+public class UsuarioPortAdaptador implements UsuarioPort {
 
 	private final UsuarioJpaRepository jpa;
 
-	public UsuarioRepositorioAdaptador(UsuarioJpaRepository jpa) {
+	public UsuarioPortAdaptador(UsuarioJpaRepository jpa) {
 		this.jpa = jpa;
 	}
 

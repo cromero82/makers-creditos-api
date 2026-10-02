@@ -1,5 +1,6 @@
 package com.makers.creditos.infrastructure.security;
 
+import com.makers.creditos.application.Seguimiento;
 import com.makers.creditos.domain.usuario.Usuario;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -37,6 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 					principal, null, principal.getAuthorities());
 			auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(auth);
+			Seguimiento.actor(usuario.getEmail());
 		} catch (JwtException | IllegalArgumentException ex) {
 			SecurityContextHolder.clearContext();
 		}

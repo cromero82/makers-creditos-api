@@ -5,7 +5,7 @@ import com.makers.creditos.domain.usuario.Usuario;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UsuarioRepositorio {
+public interface UsuarioPort {
 
 	Optional<Usuario> buscarPorEmail(String email);
 

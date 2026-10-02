@@ -1,6 +1,6 @@
 package com.makers.creditos.infrastructure.security;
 
-import com.makers.creditos.application.port.UsuarioRepositorio;
+import com.makers.creditos.application.port.UsuarioPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -54,7 +54,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public UserDetailsService userDetailsService(UsuarioRepositorio usuarios) {
+	public UserDetailsService userDetailsService(UsuarioPort usuarios) {
 		return email -> usuarios.buscarPorEmail(email)
 				.map(UsuarioPrincipal::new)
 				.orElseThrow(() -> new UsernameNotFoundException("Credenciales inválidas"));

@@ -1,7 +1,7 @@
 package com.makers.creditos.infrastructure.security;
 
-import com.makers.creditos.application.port.EmisorToken;
-import com.makers.creditos.application.port.UsuarioRepositorio;
+import com.makers.creditos.application.port.TokenPort;
+import com.makers.creditos.application.port.UsuarioPort;
 import com.makers.creditos.config.JwtProperties;
 import com.makers.creditos.domain.usuario.Rol;
 import com.makers.creditos.domain.usuario.Usuario;
@@ -16,12 +16,12 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class JwtService implements EmisorToken {
+public class JwtService implements TokenPort {
 
 	private final JwtProperties properties;
-	private final UsuarioRepositorio usuarios;
+	private final UsuarioPort usuarios;
 
-	public JwtService(JwtProperties properties, UsuarioRepositorio usuarios) {
+	public JwtService(JwtProperties properties, UsuarioPort usuarios) {
 		this.properties = properties;
 		this.usuarios = usuarios;
 	}

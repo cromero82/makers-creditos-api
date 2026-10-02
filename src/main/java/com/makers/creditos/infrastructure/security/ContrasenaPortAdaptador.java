@@ -1,15 +1,15 @@
 package com.makers.creditos.infrastructure.security;
 
-import com.makers.creditos.application.port.VerificadorContrasena;
+import com.makers.creditos.application.port.ContrasenaPort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VerificadorContrasenaAdaptador implements VerificadorContrasena {
+public class ContrasenaPortAdaptador implements ContrasenaPort {
 
 	private final PasswordEncoder passwordEncoder;
 
-	public VerificadorContrasenaAdaptador(PasswordEncoder passwordEncoder) {
+	public ContrasenaPortAdaptador(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
 

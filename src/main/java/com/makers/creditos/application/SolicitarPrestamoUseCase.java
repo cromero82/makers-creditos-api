@@ -1,6 +1,6 @@
 package com.makers.creditos.application;
 
-import com.makers.creditos.application.port.PrestamoRepositorio;
+import com.makers.creditos.application.port.PrestamoPort;
 import com.makers.creditos.config.CacheConfig;
 import com.makers.creditos.domain.prestamo.EstadoPrestamo;
 import com.makers.creditos.domain.prestamo.Prestamo;
@@ -15,19 +15,20 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Service
-public class SolicitarPrestamo {
+public class SolicitarPrestamoUseCase {
 
-	private static final Logger log = LoggerFactory.getLogger(SolicitarPrestamo.class);
+	private static final Logger log = LoggerFactory.getLogger(SolicitarPrestamoUseCase.class);
 
-	private final PrestamoRepositorio prestamos;
+	private final PrestamoPort prestamos;
 
-	public SolicitarPrestamo(PrestamoRepositorio prestamos) {
+	public SolicitarPrestamoUseCase(PrestamoPort prestamos) {
 		this.prestamos = prestamos;
 	}
 
 	@Transactional
 	@CacheEvict(cacheNames = CacheConfig.PRESTAMOS, allEntries = true)
 	public Prestamo ejecutar(UUID usuarioId, BigDecimal monto, int plazoMeses) {
+		log.info("inicio solicitar usuarioId={}", usuarioId);
 		Prestamo prestamo = Prestamo.builder()
 				.id(UUID.randomUUID())
 				.usuarioId(usuarioId)
@@ -37,7 +38,7 @@ public class SolicitarPrestamo {
 				.creadoEn(OffsetDateTime.now())
 				.build();
 		Prestamo guardado = prestamos.guardar(prestamo);
-		log.info("prestamo solicitado id={} estado={}", guardado.getId(), guardado.getEstado());
+		log.info("fin solicitar id={} estado={}", guardado.getId(), guardado.getEstado());
 		return guardado;
 	}
 }

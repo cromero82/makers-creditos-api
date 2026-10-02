@@ -1,6 +1,6 @@
 package com.makers.creditos.infrastructure.persistence;
 
-import com.makers.creditos.application.port.PrestamoRepositorio;
+import com.makers.creditos.application.port.PrestamoPort;
 import com.makers.creditos.domain.prestamo.Prestamo;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class PrestamoRepositorioAdaptador implements PrestamoRepositorio {
+public class PrestamoPortAdaptador implements PrestamoPort {
 
 	private final PrestamoJpaRepository jpa;
 
-	public PrestamoRepositorioAdaptador(PrestamoJpaRepository jpa) {
+	public PrestamoPortAdaptador(PrestamoJpaRepository jpa) {
 		this.jpa = jpa;
 	}
 
