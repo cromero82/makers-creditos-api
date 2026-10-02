@@ -1,0 +1,28 @@
+server:
+  port: 8090
+  error:
+    include-message: never
+    include-binding-errors: never
+
+spring:
+  application:
+    name: makers-creditos-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/makers-credit-db
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-minutes: 120
